@@ -16,24 +16,30 @@ include_once('formHandler.php');
             <div class="formWraper">
                 <form class="form" name="feedback" method="POST" action="<?php $_SERVER['REQUEST_URI'] ?>">
                     <div class="formTitle">Ваше ФИО</div>
-                    <input class="inputField" type="text" name="user_name" placeholder="Фамилия Имя Отчество" value="<?= autoComplete($name) ?>" required>
+                    <input class="inputField" type="text" name="user_name" placeholder="Фамилия Имя Отчество" value="<?= autoCompleteVar($_SESSION['validation'], $name, $_SESSION['name']) ?>" required>
                     <?php
-                    if ($validName) {
-                        echo '<p class="message ' . color($validName) . '">' . $validName . '</p>';
-                    } 
+                    if ($name
+                        || $_SESSION['validation']
+                    ) {
+                        echo validMessage($name, $validName);
+                    }
                     ?>
                     <div class="formTitle">Ваш email</div>
                     <input class="inputField" type="email" name="user_email" placeholder="user@email.com" value="<?= autoCompleteVar($_SESSION['validation'], $email, $_SESSION['email']) ?>" required>
                     <?php
-                    if ($validEmail) {
-                        echo '<p class="message ' . color($validEmail) . '">' . $validEmail . '</p>';
+                    if ($name
+                        || $_SESSION['validation']
+                    ) {
+                        echo validMessage($email, $validEmail);
                     }
                     ?>
                     <div class="formTitle">Ваш № телефона</div>
                     <input class="inputField" type="text" name="user_phone" placeholder="89123456789" value="<?= autoCompleteVar($_SESSION['validation'], $phone, $_SESSION['phone']) ?>" required>
                     <?php
-                    if ($validPhone) {
-                        echo '<p class="message ' . color($validPhone) . '">' . $validPhone . '</p>';
+                    if ($name
+                        || $_SESSION['validation']
+                    ) {
+                        echo validMessage($phone, $validPhone);
                     }
                     ?>
                     <div  class="formTitle">Сообщение</div>
@@ -44,7 +50,7 @@ include_once('formHandler.php');
                     </div>
                     <?php
                     if ($_SESSION['message']
-                    && $_SESSION['validation']
+                        && $_SESSION['validation']
                     ) {
                         echo '<p class="endMessage">' . $_SESSION['message'] . '</p>';
                     }

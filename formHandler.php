@@ -13,30 +13,31 @@ if ($_POST['submit_btn']) {
     $name = trim($_POST['user_name']);
     $email = trim($_POST['user_email']);
     $phone = trim($_POST['user_phone']);
-    $date = $_PыOST['brd_date'];
+    
 
     $text = trim(htmlspecialchars($_POST['message']));
 
-    $regExName = '/^([А-Яа-я][а-я]){3,}$/u';
+    $regExName = '/^[А-Яа-я][а-я]{2,}((\s)[А-Яа-я][а-я]{2,}){0,2}$/u';
     $regExEmail = '/[-0-9a-z_\.]+@[-0-9a-z^\.]+\.[a-z]{2,}/i';
     $regExPhone ='/^((\+7|7|8)+([0-9]){10})$/';
 
     $validName = validation($regExName, $name);
     $validEmail = validationEmail($email);
     $validPhone = validation($regExPhone, $phone);
-//    $_SESSION['validation'] = validationAllRes($validName, $validEmail, $validPhone);
+    $_SESSION['validation'] = $validName && $validEmail && $validPhone;
     
 
-//   if ($_SESSION['validation']) {
-//        $_SESSION['name'] = $name;
-//        $_SESSION['email'] = $email;
-//        $_SESSION['phone'] = $phone;
-//        $_SESSION['date'] = $date;
-//        $_SESSION['text'] = $text;
+  if ($_SESSION['validation']) {
+       $_SESSION['name'] = $name;
+       $_SESSION['email'] = $email;
+       $_SESSION['phone'] = $phone;
+       $_SESSION['date'] = $date;
+       $_SESSION['text'] = $text;
+       $_SESSION['message'] = 'Сообщение отправлено';
         
-//        header("Location: http://$host$uri/$extra");
-//        exit;
-//    }
+       header("Location: http://$host$uri/$extra");
+       exit;
+   }
 }
 
 if ($_POST['exit_btn']) {

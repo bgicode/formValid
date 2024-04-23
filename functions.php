@@ -1,6 +1,6 @@
 <?php
 
-function validation(string $regEx, string $field): string
+function validation(string $regEx, string $field): bool
 {
     $options = [
         'options' => [
@@ -8,24 +8,19 @@ function validation(string $regEx, string $field): string
         ]
     ];
     if (filter_var($field, FILTER_VALIDATE_REGEXP, $options)) {
-        $message = 'проверка пройдена';
+        return true;
     } else {
-        $message = 'неверно введено';
+        return false;
     }
-
-    return $message;
 }
 
-function validationEmail(string $field): string
+function validationEmail(string $field): bool
 {
-
     if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
-        $message = 'проверка пройдена';
+        return true;
     } else {
-        $message = 'неверно введено';
+       return false;
     }
-
-    return $message;
 }
 
 function validationAllRes(string $value1, string $value2, string $value3): bool
@@ -57,10 +52,19 @@ function autoCompleteVar(mixed $param, mixed $error = '', mixed $success = ''): 
     }
 }
 
-function color($param) {
-    if ($param = 'проверка пройдена') {
-        return 'green';
+function validMessage(mixed $field, mixed $check): string
+{
+    if ($check) {
+        $color = 'green';
+        $message = 'проверка пройдена';
     } else {
-        return 'red';
+        $color = 'red';
+        $message = 'неверно введено';
+    }
+
+    if ($field) {
+        return '<p class="message ' . $color . '">' . $message . '</p>';
+    } elseif ($_SESSION['validation']) {
+        return '<p class="message green">проверка пройдена</p>';
     }
 }
