@@ -6,6 +6,10 @@
     color: #ffffff;
 }
 
+.wrap {
+    margin-bottom: 50px;
+}
+
 .inputField {
     border-radius: 5px;
     height: 30px;
@@ -128,4 +132,9 @@ form {
 .afterFilterTitle {
     color: #ffffff;
     font-size: 15px;
+}
+
+.btnWrap {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

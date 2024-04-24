@@ -1,4 +1,12 @@
 <?php
+function dateErrorMessage(int $dateTime, int $timeOld): string
+{
+    if ($dateTime < $timeOld) {
+        return 'возраст превышает допустимое значение';
+    } else {
+        return 'возраст меньше допустимого значения';
+    }
+}
 
 function validation(string $regEx, string $field): bool
 {
@@ -61,35 +69,6 @@ function validationRange(int $field, int $min, int $max): bool
         }
 }
 
-// function validationAllRes(string $value1, string $value2, string $value3): bool
-// {
-//     if (empty($value1) && empty($value2) && empty($value3)) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-// function autoComplete(mixed $field): string
-// {
-//     if ($field) {
-//         return $field;
-//     } else {
-//         return '';
-//     }
-// }
-
-// function autoCompleteVar(mixed $param = '', mixed $error = '', mixed $success = ''): string
-// {
-//     if (!$param) {
-//         return autoComplete($error);
-//     } elseif ($param) {
-//         return autoComplete($success);
-//     } else {
-//         return '';
-//     }
-// }
-
 function autoComplete(mixed $param = '', mixed $error = '', mixed $success = ''): string
 {
     if (!$param) {
@@ -109,15 +88,14 @@ function autoComplete(mixed $param = '', mixed $error = '', mixed $success = '')
     }
 }
 
-
-function validMessage(mixed $field, mixed $check): string
+function validMessage(mixed $field, mixed $check, string $errMessage = 'неверно введено'): string
 {
     if ($check) {
         $color = 'green';
         $message = 'проверка пройдена';
     } else {
         $color = 'red';
-        $message = 'неверно введено';
+        $message = $errMessage;
     }
 
     if ($field) {
@@ -134,12 +112,12 @@ function textFilter(string $field): string
 
 function phoneFilter(string $field): string
 {
-    return str_replace(' ', '', $field);
+    return preg_replace('/\+7|\s/', '', $field);
 }
 
-function autoCompleteIP(string $ipaddres): string
+function autoCompleteIP(string $ipAddres): string
 {
-    if (!$ipaddres) {
+    if (!$ipAddres) {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -148,21 +126,11 @@ function autoCompleteIP(string $ipaddres): string
             return $_SERVER['REMOTE_ADDR'];
         }
     } else {
-        return $ipaddres;
+        return $ipAddres;
     }
 }
 
-// function getFilteredData($field, $successField, $calbeck) {
-//     if (!$successField
-//         && $field
-//     ) {
-//         return $calbeck($field);
-//     } elseif ($successField) {
-//         return $calbeck($successField);
-//     }
-// }
-
-function getFilteredData($check, $field, $successField, $filter)
+function getFilteredData(mixed $check, mixed $field, mixed $successField, callable $filter): string
 {
     if (!$successField
         && $field
@@ -176,6 +144,7 @@ function getFilteredData($check, $field, $successField, $filter)
         || $_SESSION['validation']
     ) {
         return '<div class="afterFilterWrap"><span class="afterFilterTitle">после фильтрации: </span><span class="message afterFilter">' . $filteredData . '</span></div>';
+    } else {
+        return '';
     }
 }
-

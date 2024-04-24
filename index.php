@@ -15,13 +15,13 @@ include_once('formHandler.php');
         <div class="wrap">
             <div class="formWraper">
                 <form class="form" name="feedback" method="POST" action="<?php $_SERVER['REQUEST_URI'] ?>">
-                    <div class="formTitle">Ваш IPv4</div>
+                    <div class="formTitle">Ваш IP</div>
                     <input class="inputField" type="text" name="user_ip" value="<?= autoCompleteIP(autoComplete($_SESSION['validation'], $ip, $_SESSION['ip'])) ?>" required>
                     <?php
                     if ($ip
                         || $_SESSION['validation']
                     ) {
-                        echo validMessage($ip, $validIP);
+                        echo validMessage($ip, $validIP, 'неверный ввод или IP в диапазоне (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)');
                     }
                     ?>
 
@@ -31,17 +31,17 @@ include_once('formHandler.php');
                     if ($id
                         || $_SESSION['validation']
                     ) {
-                        echo validMessage($id, $validID);
+                        echo validMessage($id, $validID, 'ID не должен быть больше 1000');
                     }
                     ?>
 
                     <div class="formTitle">ваша дата рождения</div>
                     <input class="inputField" type="date" name="date" placeholder="от 10 до 90 лет" value="<?= autoComplete($_SESSION['validation'], $date, $_SESSION['date']) ?>" required>
                     <?php
-                    if ($date
+                    if ($dateTime
                         || $_SESSION['validation']
                     ) {
-                        echo validMessage($date, $validDate);
+                        echo validMessage($date, $validDate, dateErrorMessage((int)$dateTime, (int)$timeErrOld));
                     }
                     ?>
 
@@ -73,12 +73,6 @@ include_once('formHandler.php');
                     ) {
                         echo validMessage($phone, $validPhone);
                         echo getFilteredData($validPhone, $phone, $_SESSION['phone'], 'phoneFilter');
-                        // if ($validPhone
-                        //     || $_SESSION['validation']
-                        // ) {
-                        //     echo '<span>после фильтрации: </span>';
-                        //     echo '<span class="message afterFilter">' . getFilteredData($phone, $_SESSION['phone'], 'phoneFilter') . '</span>';
-                        // }
                     }
                     ?>
 
@@ -88,25 +82,12 @@ include_once('formHandler.php');
                     if ($text
                         || $_SESSION['validation']
                     ) {
-                        echo validMessage($text, $validText);
+                        echo validMessage($text, $validText, 'текст не должен содержать ссылки');
                         echo getFilteredData($validText, $text, $_SESSION['text'], 'textFilter');
-                        // if ($validText
-                        //     || $_SESSION['validation']
-                        // ) {
-                        //     // if (!$_SESSION['text']
-                        //     //     && $text
-                        //     // ) {
-                        //     //     $filteredText = textFilter($text);
-                        //     // } elseif ($_SESSION['text']) {
-                        //     //     $filteredText = textFilter($_SESSION['text']);
-                        //     // }
-                        //     echo '<span>после фильтрации: </span>';
-                        //     echo '<p class="message afterFilter">' . getFilteredData($text, $_SESSION['text'], 'textFilter') . '</p>';
-                        // }
                     }
                     ?>
 
-                    <div>
+                    <div class="btnWrap">
                         <input class="submitBtn" type="submit" name="submit_btn" value="Отправить">
                         <input class="submitBtn" type="submit" name="exit_btn" value="Обновить">
                     </div>
