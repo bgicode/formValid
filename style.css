@@ -40,6 +40,10 @@ textarea:focus {
     box-shadow: 0px 0px 21px 5px rgba(255, 217, 48, 0.31);
 }
 
+textarea::placeholder {
+    color: #a5a4a4;
+}
+
 .inputField::placeholder {
     color: #a5a4a4;
 }
@@ -114,4 +118,14 @@ form {
 
 .green {
     color: greenyellow;
+}
+
+.afterFilter {
+    color: #cfcece;
+    font-size: 12px;
+}
+
+.afterFilterTitle {
+    color: #ffffff;
+    font-size: 15px;
 }
