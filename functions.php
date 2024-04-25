@@ -62,11 +62,12 @@ function validationRange(int $field, int $min, int $max): bool
         'max_range' => $max,
         ]
     ];
-        if(filter_var($field, FILTER_VALIDATE_INT, $options)) {
-            return true;
-        } else {
-            return false;
-        }
+
+    if (filter_var($field, FILTER_VALIDATE_INT, $options)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function autoComplete(mixed $param = '', mixed $error = '', mixed $success = ''): string
