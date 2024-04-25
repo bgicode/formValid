@@ -48,9 +48,9 @@ if ($_POST['submit_btn']) {
         $_SESSION['ip'] = $ip;
         $_SESSION['id'] = $id;
         $_SESSION['message'] = 'Сообщение отправлено';
-            
+
         header("Location: http://$host$uri/$extra");
-        
+
         exit;
     }
 }
@@ -63,6 +63,6 @@ if ($_POST['exit_btn']) {
     session_destroy();
 
     header("Location: http://$host$uri/$extra");
-    
+
     exit;
 }
