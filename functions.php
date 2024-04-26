@@ -27,7 +27,7 @@ function validationIP(string $field)
     if (filter_var($field, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
         return true;
     } else {
-       return false;
+        return false;
     }
 }
 
@@ -36,7 +36,7 @@ function validationEmail(string $field): bool
     if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
         return true;
     } else {
-       return false;
+        return false;
     }
 }
 
@@ -58,8 +58,8 @@ function validationRange(int $field, int $min, int $max): bool
 {
     $options = [
         'options' => [
-        'min_range' => $min,
-        'max_range' => $max,
+            'min_range' => $min,
+            'max_range' => $max,
         ]
     ];
 
@@ -75,18 +75,15 @@ function autoComplete(mixed $param = '', mixed $error = '', mixed $success = '')
     if (!$param) {
         if ($error) {
             return $error;
-        } else {
-            return '';
         }
     } elseif ($param) {
         if ($success) {
             return $success;
-        } else {
-            return '';
         }
-    } else {
-        return '';
     }
+
+    return '';
+
 }
 
 function validMessage(mixed $field, mixed $check, string $errMessage = 'неверно введено'): string
@@ -108,7 +105,7 @@ function validMessage(mixed $field, mixed $check, string $errMessage = 'неве
 
 function textFilter(string $field): string
 {
-    return filter_var($field, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    return strip_tags($field);
 }
 
 function phoneFilter(string $field): string
@@ -145,7 +142,7 @@ function getFilteredData(mixed $check, mixed $field, mixed $successField, callab
         || $_SESSION['validation']
     ) {
         return '<div class="afterFilterWrap"><span class="afterFilterTitle">после фильтрации: </span><span class="message afterFilter">' . $filteredData . '</span></div>';
-    } else {
-        return '';
     }
+
+    return '';
 }

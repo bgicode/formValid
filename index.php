@@ -77,7 +77,7 @@ include_once('formHandler.php');
                     ?>
 
                     <div class="formTitle">Сообщение</div>
-                    <textarea name="message" placeholder="не вводить ссылки, все тэги будут преобразованны" required><?= autoComplete($_SESSION['validation'], $text, $_SESSION['text']) ?></textarea>
+                    <textarea name="message" placeholder="не вводить ссылки, все тэги будут удалены" required><?= autoComplete($_SESSION['validation'], $text, $_SESSION['text']) ?></textarea>
                     <?php
                     if ($text
                         || $_SESSION['validation']

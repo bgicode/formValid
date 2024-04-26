@@ -24,7 +24,7 @@ if ($_POST['submit_btn']) {
 
     $regExName = '/^[А-Яа-я][а-я]{2,}((\s)[А-Яа-я][а-я]{2,}){0,2}$/u';
     $regExEmail = '/[-0-9a-z_\.]+@[-0-9a-z^\.]+\.[a-z]{2,}/i';
-    $regExPhone ='/^(\+7)\s?[0-9]{3}\s?[0-9](\s?[0-9]{2}){3}$/';
+    $regExPhone ='/^(\+7)(\s*[0-9]\s*){10}$/';
 
     $filteredText = textFilter($text);
     $filteredPhone = phoneFilter($phone);
